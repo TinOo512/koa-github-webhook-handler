@@ -1,2 +1,2 @@
 # koa-github-webhook-handler
-Koa.js web handler / middleware for processing GitHub Webhooks
+Koa.js middleware for processing GitHub Webhooks

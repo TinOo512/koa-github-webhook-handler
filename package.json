@@ -1,0 +1,14 @@
+{
+  "name": "koa-github-webhook-handler",
+  "version": "0.0.1",
+  "description": "Koa.js Web handler / middleware for processing GitHub Webhooks",
+  "main": "koa-github-webhook-handler.js",
+  "keywords": [
+    "github",
+    "webhooks"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/TinOo512/koa-github-webhook-handler"
+  }
+}
