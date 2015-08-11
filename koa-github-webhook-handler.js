@@ -5,9 +5,9 @@ function signBlob (key, blob) {
   return 'sha1=' + crypto.createHmac('sha1', key).update(blob).digest('hex');
 }
 
-module.exports = {
-  event: EventEmitter.prototype,
-  middleware: function githubWebhookHandler (options) {
+var githubWebhookHandler = {
+  __proto__: EventEmitter.prototype,
+  middleware: function middleware (options) {
     var self = this;
 
     if (typeof options !== 'object')
@@ -19,7 +19,7 @@ module.exports = {
     if (typeof options.secret !== 'string')
       throw new TypeError('must provide a \'secret\' option');
 
-    return function *githubWebhookHandler (next) {
+    return function *middleware (next) {
       if (this.request.path !== options.path)
         return yield next;
 
@@ -45,8 +45,12 @@ module.exports = {
         url     : this.request.url
       };
 
-      self.event.emit(event, emitData);
-      self.event.emit('*', emitData);
+      self.emit(event, emitData);
+      self.emit('*', emitData);
     }
   }
 };
+
+EventEmitter.call(githubWebhookHandler);
+
+module.exports = githubWebhookHandler;
