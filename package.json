@@ -2,7 +2,11 @@
   "name": "koa-github-webhook-handler",
   "version": "0.0.1",
   "description": "Koa.js middleware for processing GitHub Webhooks",
-  "main": "koa-github-webhook-handler.js",
+  "scripts": {
+    "build": "babel -b regenerator -d lib/ src/",
+    "prepublish": "npm run build"
+  },
+  "main": "lib/koa-github-webhook-handler.js",
   "keywords": [
     "github",
     "webhooks"
@@ -10,5 +14,8 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/TinOo512/koa-github-webhook-handler"
+  },
+  "devDependencies": {
+    "babel": "^5.8.21"
   }
 }
