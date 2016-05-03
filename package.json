@@ -1,6 +1,6 @@
 {
   "name": "koa-github-webhook-handler",
-  "version": "0.0.2",
+  "version": "0.1.0",
   "description": "Koa.js middleware for processing GitHub Webhooks",
   "scripts": {
     "build": "babel -b regenerator -d lib/ src/",
@@ -24,5 +24,8 @@
   },
   "homepage": "https://github.com/TinOo512/koa-github-webhook-handler#readme",
   "author": "TinOo512 <etienne.dedieuleveult@gmail.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "raw-body": "^2.1.6"
+  }
 }

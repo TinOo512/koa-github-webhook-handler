@@ -2,6 +2,7 @@
 
 import { EventEmitter } from 'events';
 import { signBlob } from './tools';
+import getRawBody from 'raw-body';
 
 export default class GithubWebhookHandler extends EventEmitter {
 
@@ -15,10 +16,10 @@ export default class GithubWebhookHandler extends EventEmitter {
     this.options = options;
   }
 
-  middleware() {
+  verify() {
     const self = this;
 
-    return function *middleware (next) {
+    return function *verify (next) {
       if (this.request.path !== self.options.path) return yield next;
 
       const sig   = this.request.get('x-hub-signature');
@@ -29,10 +30,24 @@ export default class GithubWebhookHandler extends EventEmitter {
       this.assert(event, 400, 'No X-Github-Event found on request');
       this.assert(id, 400, 'No X-Github-Delivery found on request');
 
-      const isBlobMatchingSig = sig === signBlob(self.options.secret, JSON.stringify(this.request.body));
+      const buffer = yield getRawBody(this.req, {
+        length: this.length,
+        limit: '1mb',
+        encoding: this.charset
+      })
+
+      const isBlobMatchingSig = sig === 'sha1=' + crypto.createHmac('sha1', self.options.secret).update(buffer).digest('hex');
       this.assert(isBlobMatchingSig, 400, 'X-Hub-Signature does not match blob signature');
 
       this.response.body = JSON.stringify({ok: true});
+    }
+  }
+
+  middleware() {
+    const self = this;
+
+    return function *middleware (next) {
+      if (this.request.path !== self.options.path) return yield next;
 
       const emitData = {
         event,

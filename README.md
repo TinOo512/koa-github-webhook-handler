@@ -27,6 +27,7 @@ githubWebhookHandler.on('push', (event) => {
     event.payload.ref)
 });
 
+app.use(githubWebhookHandler.verify());
 app.use(koaBody({formidable:{uploadDir: __dirname}}));
 app.use(githubWebhookHandler.middleware());
 
