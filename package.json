@@ -17,7 +17,8 @@
     "url": "git+https://github.com/TinOo512/koa-github-webhook-handler.git"
   },
   "devDependencies": {
-    "babel": "^5.8.21"
+    "babel-cli": "^6.8.0",
+    "babel-preset-es2015-node4": "^2.1.0",
   },
   "bugs": {
     "url": "https://github.com/TinOo512/koa-github-webhook-handler/issues"
