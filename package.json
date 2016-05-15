@@ -4,7 +4,8 @@
   "description": "Koa.js middleware for processing GitHub Webhooks",
   "scripts": {
     "build": "babel src/ -d lib/",
-    "prepublish": "npm run build"
+    "prepublish": "npm run build",
+    "test": "tape -r babel-register test/**/*.es6"
   },
   "main": "lib/koa-github-webhook-handler.js",
   "keywords": [
@@ -19,6 +20,13 @@
   "devDependencies": {
     "babel-cli": "^6.8.0",
     "babel-preset-es2015-node4": "^2.1.0",
+    "babel-register": "^6.8.0",
+    "co-tape": "^1.0.0",
+    "koa": "^1.2.0",
+    "koa-body": "^1.4.0",
+    "superagent": "^1.8.3",
+    "superagent-promise-plugin": "^3.2.0",
+    "tape": "^4.5.1"
   },
   "bugs": {
     "url": "https://github.com/TinOo512/koa-github-webhook-handler/issues"
