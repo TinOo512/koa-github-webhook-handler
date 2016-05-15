@@ -32,7 +32,8 @@ export default class GithubWebhookHandler extends EventEmitter {
       const isBlobMatchingSig = sig === signBlob(self.options.secret, JSON.stringify(this.request.body));
       this.assert(isBlobMatchingSig, 400, 'X-Hub-Signature does not match blob signature');
 
-      this.response.body = JSON.stringify({ok: true});
+
+      this.response.body = {ok: true};
 
       const emitData = {
         event,
