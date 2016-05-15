@@ -19,7 +19,6 @@ const setup = (opts = {}) => {
 
   const handler = new GithubWebhookHandler(opts);
 
-  app.use(koaBody({formidable:{uploadDir: __dirname}}));
   app.use(handler.middleware());
 
   const server = createServer(app.callback()).listen(3000);

@@ -36,5 +36,8 @@
   },
   "homepage": "https://github.com/TinOo512/koa-github-webhook-handler#readme",
   "author": "TinOo512 <etienne.dedieuleveult@gmail.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "raw-body": "^2.1.6"
+  }
 }

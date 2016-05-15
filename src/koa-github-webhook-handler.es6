@@ -1,6 +1,7 @@
 'use strict';
 
 import { EventEmitter } from 'events';
+import getRawBody from 'raw-body';
 import { signBlob } from './tools';
 
 export default class GithubWebhookHandler extends EventEmitter {
@@ -29,16 +30,28 @@ export default class GithubWebhookHandler extends EventEmitter {
       this.assert(event, 400, 'No X-Github-Event found on request');
       this.assert(id, 400, 'No X-Github-Delivery found on request');
 
-      const isBlobMatchingSig = sig === signBlob(self.options.secret, JSON.stringify(this.request.body));
+      const body = yield getRawBody(this.req, {
+        length: this.length,
+        limit: '1mb',
+        encoding: this.charset
+      });
+
+      const isBlobMatchingSig = sig === signBlob(self.options.secret, body);
       this.assert(isBlobMatchingSig, 400, 'X-Hub-Signature does not match blob signature');
 
+      let payload = null;
+      try {
+        payload = JSON.parse(body.toString())
+      } catch (err) {
+        this.throw(400, 'Cannot `JSON.parse` the request body');
+      }
 
       this.response.body = {ok: true};
 
       const emitData = {
         event,
         id,
-        payload: this.request.body,
+        payload: payload,
         protocol: this.request.protocol,
         host: this.request.get('host'),
         url: this.request.url
