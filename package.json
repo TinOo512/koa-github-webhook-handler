@@ -28,6 +28,9 @@
     "superagent-promise-plugin": "^3.2.0",
     "tape": "^4.5.1"
   },
+  "engines": {
+    "node": ">= 4"
+  },
   "bugs": {
     "url": "https://github.com/TinOo512/koa-github-webhook-handler/issues"
   },
