@@ -121,7 +121,7 @@ test('middleware accepts a signed blob', cotape(function *({ plan, equal, deepEq
   const url = '/webhook';
   const payload = { some: 'github', object: 'with', properties: true };
 
-  plan(3);
+  plan(4);
 
   handler.on('push', event => {
     deepEqual(event, { event: 'push', id: 'bogus', payload, protocol: protocol.slice(0, -1), host, url });
@@ -135,7 +135,8 @@ test('middleware accepts a signed blob', cotape(function *({ plan, equal, deepEq
       .set('x-github-delivery', 'bogus');
 
     equal(res.status, 200, 'correct status code');
-    equal(res.res.text, '{"ok":true}', 'got correct content');
+    equal(res.headers['content-type'], 'application/json; charset=utf-8', 'got correct content type');
+    deepEqual(res.body, { ok: true }, 'got correct content');
   } catch (err) {
     error(err);
     fail('should not get here!');
@@ -151,7 +152,7 @@ test('middleware accepts a signed blob with alt event', cotape(function *({ plan
   const url = '/webhook';
   const payload = { some: 'github', object: 'with', properties: true };
 
-  plan(3);
+  plan(4);
 
   handler.on('push', () => fail('should not get here!'));
   handler.on('issue', function (event) {
@@ -166,7 +167,8 @@ test('middleware accepts a signed blob with alt event', cotape(function *({ plan
       .set('x-github-delivery', 'bogus');
 
     equal(res.status, 200, 'correct status code');
-    equal(res.res.text, '{"ok":true}', 'got correct content');
+    equal(res.headers['content-type'], 'application/json; charset=utf-8', 'got correct content type');
+    deepEqual(res.body, { ok: true }, 'got correct content');
   } catch (err) {
     error(err);
     fail('should not get here!');
