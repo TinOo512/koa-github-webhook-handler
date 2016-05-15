@@ -1,3 +1,7 @@
+[![NPM Version][npm-image]][npm-url]
+[![Node.js Version][node-version-image]][node-version-url]
+[![Build status][travis-image]][travis-url]
+
 # koa-github-webhook-handler
 Koa.js middleware for processing GitHub Webhooks
 
@@ -51,3 +55,10 @@ Additionally, there is a special `'*'` event you can listen to in order to recei
 ## License
 
 **koa-github-webhook-handler** is Copyright (c) 2015 TinOo512 [@TinOo512](https://twitter.com/TinOo512) and licensed under the MIT License. All rights not explicitly granted in the MIT License are reserved. See the included [LICENSE.md](./LICENSE.md) file for more details.
+
+[npm-image]: https://img.shields.io/npm/v/koa-github-webhook-handler.svg
+[npm-url]: https://npmjs.org/package/koa-github-webhook-handler
+[node-version-image]: https://img.shields.io/node/v/koa-github-webhook-handler.svg
+[node-version-url]: http://nodejs.org/download/
+[travis-image]: https://img.shields.io/travis/TinOo512/koa-github-webhook-handler/master.svg
+[travis-url]: https://travis-ci.org/TinOo512/koa-github-webhook-handler
