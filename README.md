@@ -18,9 +18,9 @@ import koa from 'koa';
 import koaBody from 'koa-body';
 import GithubWebhookHandler from 'koa-github-webhook-handler';
 
-let app = koa();
+const app = koa();
 
-let githubWebhookHandler = new GithubWebhookHandler({
+const githubWebhookHandler = new GithubWebhookHandler({
   path: '/webhook',
   secret: 'myhashsecret'
 });
